@@ -4,7 +4,7 @@
 const md5 = require('blueimp-md5');
 const mongoose = require('mongoose');
 //                     protocol                   db_name
-mongoose.connect('mongodb://localhost:27017/lighttalk',{
+mongoose.connect('mongodb://localhost:27017/lighttalk1',{
   useNewUrlParser: true,
   useUnifiedTopology: true
 }).then(

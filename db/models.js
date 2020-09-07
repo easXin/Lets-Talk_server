@@ -1,7 +1,8 @@
-// for register
-
-// 1, connect to db
+// // for register
+//
+// // 1, connect to db
 const mongoose = require('mongoose');
+const md5 = require('blueimp-md5');
 mongoose.connect('mongodb://localhost:27017/lighttalk',{
   useNewUrlParser: true,
       useUnifiedTopology: true
@@ -27,6 +28,4 @@ const userSchema = mongoose.Schema({
 // 3. define a model
 const UserModel = mongoose.model('user',userSchema);
 
-//exports.UserModel = UserModel;
-
-module.exports = UserModel;
+exports.UserModel = UserModel

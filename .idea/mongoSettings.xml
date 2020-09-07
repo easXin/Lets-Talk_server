@@ -15,6 +15,18 @@
           </option>
           <option name="userDatabase" value="lighttalk" />
         </ServerConfiguration>
+        <ServerConfiguration>
+          <option name="label" value="localhost" />
+          <option name="serverUrls">
+            <list>
+              <option value="localhost:27017" />
+            </list>
+          </option>
+          <option name="sshTunnelingConfiguration">
+            <SshTunnelingConfiguration />
+          </option>
+          <option name="userDatabase" value="lighttalk1" />
+        </ServerConfiguration>
       </list>
     </option>
     <option name="shellPath" value="C:\Program Files\MongoDB\Server\4.4\bin\mongod.exe" />
