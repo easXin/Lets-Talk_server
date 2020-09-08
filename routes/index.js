@@ -51,10 +51,37 @@ router.post('/login',(req,res)=>{
         res.send({code:0,data:user});
       }
   })
-  // UserModel.findOne({username,md5(password)},0,(err,user)=>{
-  //   if(!user){
-  //
-  //   }
-  // })
 })
+
+/*
+   /update    post
+   avatar     Y
+   info       n
+   post       n
+   salary     n
+   company    n
+ */
+
+router.post('/update',  (req, res) => {
+
+  const id = req.cookies.userid;
+  //console.log(req.cookies)
+  if(!id){
+    // login is outdated
+    return res.send({code:1, msg:'Your login session is expired, please re-login '})
+  }
+  // query user's data from db, then update it
+  // https://mongoosejs.com/docs/api.html
+  console.log(req.body)
+  UserModel.findByIdAndUpdate({_id:id},req.body,(err,user)=>{
+
+    const {_id, username, type} = user;
+    // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign
+    const data = Object.assign(req.body, {_id, username, type})
+    res.send({code: 0, data})
+  }).catch(err =>{
+    res.send({code: 1, msg:"User is not found"})
+  })
+})
+
 module.exports = router;
