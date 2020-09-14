@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const md5 = require('blueimp-md5');
-//const UserModel = require('../db/models').UserModel;
 const {UserModel} = require('../db/models');
 // init
 router.get('/', function(req, res, next) {
@@ -52,16 +51,6 @@ router.post('/login',(req,res)=>{
       }
   })
 })
-
-/*
-   /update    post
-   avatar     Y
-   info       n
-   post       n
-   salary     n
-   company    n
- */
-
 router.post('/update',  (req, res) => {
 
   const id = req.cookies.userid;
@@ -81,6 +70,28 @@ router.post('/update',  (req, res) => {
     res.send({code: 0, data})
   }).catch(err =>{
     res.send({code: 1, msg:"User is not found"})
+  })
+})
+
+// if there is cookie that means current user is not a new user
+// then redirect him to his main page
+
+router.get('/user',(req,res)=>{
+  const {userid} = req.cookie;
+  if(!userid){ // if userid is null, then user is log out
+     res.send({code:1, msg:'Please log in'});
+  }
+  UserModel.findOne({_id:userid},(err,user)=>{
+     res.send({code:0,data:user})
+  })
+})
+
+// query out the userlist based on its type
+router.get('/userlist',(req,res)=>{
+  const{type} = req.query;
+  //type = type.toLowerCase();
+  UserModel.find({type},(err,user)=>{
+    res.send({code:0, data:user})
   })
 })
 
